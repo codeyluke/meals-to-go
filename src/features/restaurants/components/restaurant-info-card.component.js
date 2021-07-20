@@ -16,6 +16,7 @@ import {
   Section,
   SectionEnd,
 } from "./restaurant-info-card.styles";
+import { Favourite } from "../../../components/favourites/favourite.component";
 
 function RestaurantInfoCard({ restaurant = {} }) {
   const {
@@ -26,6 +27,7 @@ function RestaurantInfoCard({ restaurant = {} }) {
     name = "Some restaurant",
     photos = ["https://picsum.photos/700"],
     rating = 4,
+    placeId,
   } = restaurant;
 
   const ratingArray = Array.from(new Array(Math.floor(rating)));
@@ -33,6 +35,7 @@ function RestaurantInfoCard({ restaurant = {} }) {
   return (
     <>
       <RestaurantCard>
+        <Favourite restaurant={restaurant} />
         <RestaurantCardCover
           key={name}
           source={{
@@ -43,8 +46,13 @@ function RestaurantInfoCard({ restaurant = {} }) {
           <Text variant="label">{name}</Text>
           <Section>
             <Rating>
-              {ratingArray.map(() => (
-                <SvgXml xml={star} width={20} height={20} />
+              {ratingArray.map((_, i) => (
+                <SvgXml
+                  xml={star}
+                  width={20}
+                  height={20}
+                  key={`star-${placeId}-${i}`}
+                />
               ))}
             </Rating>
             <SectionEnd>
